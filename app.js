@@ -6,7 +6,7 @@ const dotenv = require("dotenv");
 const https = require("https");
 const app = express();
 
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public/"));
 app.use(bodyParser.urlencoded({extended:true}));
 dotenv.config();
 
@@ -54,7 +54,7 @@ app.post("/", (req,res) => {
         response.on("data", (data) => {
             //ClientRequest object returned
             const obj = JSON.parse(data);
-
+            
             //checking if POST request was successfull and data is posted on mailchiimp server
             if (response.statusCode !== 200 || obj.errors.length != 0) {
                 res.sendFile(__dirname + "/templates/failure.html");
